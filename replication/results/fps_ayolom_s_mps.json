@@ -1,0 +1,24 @@
+{
+  "weights": "data/weights/v4s.pt",
+  "device": "mps",
+  "input": [
+    384,
+    640
+  ],
+  "precision": "fp32",
+  "bs1": {
+    "iters": 1000,
+    "latency_ms": 33.88634929098771,
+    "fps": 29.510408200447735
+  },
+  "bs32": {
+    "iters": 1000,
+    "latency_ms_per_batch": 598.1224954579957,
+    "fps": 53.500746490895466
+  },
+  "env": {
+    "torch": "2.2.2",
+    "python": "3.10.22",
+    "platform": "macOS-27.2.1-arm64-arm-64bit"
+  }
+}

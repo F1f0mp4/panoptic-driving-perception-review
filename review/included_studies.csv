@@ -1,0 +1,32 @@
+key,label,rid,year,group,backbone,det_head,params_M,det_recall,det_map50,da_miou,ll_acc,ll_iou,lane_acc_def,fps,fps_hw,code,robust_eval,edge_eval,notes
+caldiran2022dynasticnet,DynasticNet,R002,2022,LW,VGG16,box-mask localisation,,,,87.39,70.27,15.15,pixel,47.62,Tesla P100,N,N,N,detection evaluated as box-mask IoU not mAP; lane trained/tested with 2-px official masks
+kim2022joint,Multilevel-branch net,R004,2022,YOLO,NR,NR,,89.08,76.16,92.68,72.13,26.92,NR,37,NR,N,N,N,
+wu2022yolop,YOLOP,R008,2022,YOLO,CSPDarknet (YOLOv4),anchor-based,7.9*,89.2,76.5,91.5,70.5,26.2,pixel,41,TITAN XP,Y,N,Y,23 FPS on Jetson TX2; *params from HybridNets/A-YOLOM tables
+han2022yolopv2,YOLOPv2,S1,2022,YOLO,E-ELAN (YOLOv7),anchor-based,38.9,91.1,83.4,93.2,87.31,27.25,pixel,91,V100,N,N,N,
+ma2023grouped,Grouped-conv/attention net,R009,2023,YOLO,Darknet-like + grouped conv + transformer + SE,NR,8.301,89.1,75.8,91.9,74.9,27.7,NR,12.8 ms,RTX 2070 Super,N,N,N,speed reported as latency
+ye2023mobip,Mobip,R015,2023,LW,MobileNetV2,anchor-based,7.5,89.3,75.6,90.4,86.2,30.9,NR,58,V100,Y,N,N,single multi-class segmentation head
+zeng2023dpyolo,DP-YOLO,R016,2023,YOLO,YOLOv5 + inverted residual,anchor-based,8.7,89.3,77.2,91.5,71.10,26.0,NR,110,Tesla T4,N,N,N,
+li2023multinetgs,MultiNet-GS,R017,2023,ATT,YOLOv8 + bi-level routing attention,NR,47.5,94.1,85.7,92.7,87.7,75.4,NR,88,RTX 3090,N,N,Y,lane IoU and baseline numbers not consistent with original papers (e.g. YOLOP 57.2M params)
+guo2023yoloodl,YOLO-ODL,R022,2023,YOLO,YOLOv5s,anchor-based,,94.2,79.7,92.3,75.0,27.5,NR,94,RTX 3090,N,N,N,477 FPS with TensorRT FP16 (C++)
+liang2023veprompt,VE-Prompt,R025,2023,ATT,Swin-T + FPN,query-based (DINO),,,64.9,89.4,,24.0,n/a,,NR,N,N,N,multi-class detection (AP50); partial-label setting
+che2023twinlitenet,TwinLiteNet,S2,2023,LW,ESPNet-C,none,0.4,,,91.3,,31.08,n/a,415,RTX A5000,Y,N,Y,60 FPS Xavier NX / 25 FPS TX2
+tang2024yolopdn,YOLOP-DN,R029,2024,YOLO,YOLOP + dual neck + C2f + SPD-conv,anchor-based,10.9,90.5,78.1,92.0,73.80,27.30,NR,91,RTX 3060,N,N,Y,Atlas 200I A2 deployment
+liu2024fusion,Improved YOLOP + LiDAR fusion,R031,2024,YOLO,CSPDarknet + C2f + SPPF,NR,,,,,,,NR,,NR,Y,N,N,absolute values only in image tables; text: +3.7 mAP50 / +2.1 mIoU / +11.6 lane acc vs YOLOP
+lin2024tyolop,T-YOLOP,R032,2024,YOLO,YOLOP (Taguchi-tuned heads),anchor-based,,,,92.8,73.9,27.8,(TP+TN)/all,,NR,N,N,N,detection not reported
+liu2024gdmnet,GDMNet,R038,2024,YOLO,GELAN (YOLOv9),anchor-based,,89.7,78.2,92.2,75.3,26.4,NR,56.5,RTX 3090,N,N,N,Table 7 reports 90.7/78.9 for the same model (inconsistent)
+li2024envperception,MogaNet/BiFPN net,R040,2024,YOLO,YOLOv8 + MogaNet + BiFPN,NR,,87.3,81.4,92.6,79.6,28.9,NR,61,RTX 4090,N,N,N,
+zhan2024yolopv3,YOLOPv3,R041,2024,YOLO,ELAN (YOLOv7),anchor-based,30.2,96.9,84.3,93.2,88.3,28.0,pixel,37,NR,Y,N,N,
+wang2024ayolom,A-YOLOM(n),R048,2024,YOLO,YOLOv8-n,anchor-free,4.43,85.3,78.0,90.5,81.3,28.2,balanced,39.9,GTX 1080 Ti,Y,N,N,
+wang2024ayolom,A-YOLOM(s),R048,2024,YOLO,YOLOv8-s,anchor-free,13.61,86.9,81.1,91.0,84.9,28.8,balanced,39.7,GTX 1080 Ti,Y,N,N,replicated in this work
+che2025twinliteplus,TwinLiteNet+ (L),R045,2025,LW,ESPNet-derived DESP,none,1.94,,,92.9,81.9,34.2,balanced,109,RTX A5000,Y,Y,Y,per-condition (night/rain/snow/fog) results; INT8 QAT
+compress2025,Pruned+KD RMT-PPAD,R055,2025,ATT,RT-DETR (pruned),query-based,23.1,94.2,83.1,92.5,85.5,56.4,recall,32.7,RTX 4090,N,N,N,uses RMT-PPAD corrected lane label
+vu2025hybridnets,HybridNets,R059,2025,YOLO,EfficientNet + BiFPN,anchor-based,12.83,92.8,77.3,90.5,85.4,31.6,NR,37 ms,V100 FP16,Y,N,N,arXiv 2022; latency bs=1
+mttppnet2025,MT-TPPNet,R064,2025,YOLO,YOLOv8 + decoupled projection,NR,13.83,89.4,83.2,91.6,85.1,28.9,balanced,285 (bs16),V100,N,N,N,also railway intrusion dataset
+mtfenet2025,MTFENet,R065,2025,YOLO,YOLOv8 + DySample/ODConv,NR,,88.4,81.5,93.8,,33.7,precision,441.53,RTX 4090,N,Y,N,generalisation test on SODA10M
+trilitenet2025,TriLiteNet (base),R077,2025,LW,depth-wise ESP,anchor-based,2.35,85.6,72.3,92.4,82.3,29.8,balanced,105,NR,Y,Y,Y,per-condition results; Jetson Xavier/TX2 latency
+ghasemzadeh2026auriganet,AurigaNet,R082,2026,YOLO,CSPDarknet + deformable embedding,anchor-based,9.09,75.9,,85.2,98.77,60.80,(TP+TN)/all,217,RTX 4080,Y,N,Y,drivable IoU (not mIoU); detection mAP50:95=47.6; Jetson Orin NX 5.1 FPS
+dbanet2026,DBA-Net,R084,2026,YOLO,YOLOP + asymmetric attention,anchor-based,8.06,89.6,77.2,91.7,71.6,25.8,NR,120,RTX 3070 Ti,N,N,N,single-run evaluation stated
+kdtwin2026,KDTwin (TwinMixing-T),R090,2026,LW,Shuffle/EPM (distilled),none,0.10,,,91.7,79.2,31.0,NR,,NR,Y,N,N,knowledge distillation
+wang2026rmtppad,RMT-PPAD,R094,2026,ATT,RT-DETR (HGNetV2-L) + GCA,query-based,34.3,95.4,84.9,92.6,84.7,56.8,recall,32.6,RTX 4090,Y,N,N,corrected (8-px dilated) lane test label; baselines re-run
+selvarajan2026safety,Safety-aware transformer MTL,R096,2026,ATT,transformer-enhanced YOLO (A-YOLOM(s) baseline),NR,,,57.4,,,,NR,,RTX 3070,Y,Y,N,primary evaluation on Indian road dataset CMIRD; BDD100K detection over anomaly classes
+twinmixing2026,TwinMixing (L),R098,2026,LW,Shuffle units + EPM,none,1.50,,,92.8,,34.2,balanced,56,NR,Y,Y,Y,

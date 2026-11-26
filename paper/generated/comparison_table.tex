@@ -1,0 +1,87 @@
+\begin{table}[!htbp]
+\centering
+\caption{Qualitative comparison of the 30 included studies (A: YOLO-derived, B: ultra-lightweight / segmentation-centric, C: transformer / query / prompt-based). All use BDD100K; additional datasets are mentioned in the text.}
+\label{tab:qual}
+\scriptsize
+\begin{tabularx}{\linewidth}{L{2.6cm} c c L{3.6cm} X X}
+\toprule
+Study & Year & Fam. & Encoder; detection head & Strengths & Limitations \\
+\midrule
+Multilevel-branch net~\cite{kim2022joint} & 2022 & A & n.r.; n.r. & multilevel decoder branches, +1.2\,pp DA vs.\ YOLOP & detection slightly below YOLOP; no code \\
+YOLOP~\cite{wu2022yolop} & 2022 & A & CSPDarknet (YOLOv4); anchor-based & defined the task and protocol; Jetson TX2 23\,FPS & anchor-based; lane metric = recall in code \\
+YOLOPv2~\cite{han2022yolopv2} & 2022 & A & E-ELAN (YOLOv7); anchor-based & strong all-round accuracy at 91\,FPS (V100) & 38.9\,M params; code not released \\
+DP-YOLO~\cite{zeng2023dpyolo} & 2023 & A & YOLOv5 + inverted residual; anchor-based & 110\,FPS on T4, fewer FLOPs than YOLOP & gains $\le$0.7\,pp; no code \\
+Grouped-conv/attention net~\cite{ma2023grouped} & 2023 & A & Darknet-like + grouped conv + transformer + SE; n.r. & grouped conv.\ + attention, fewer params than baseline & mAP below YOLOP; no code \\
+YOLO-ODL~\cite{guo2023yoloodl} & 2023 & A & YOLOv5s; anchor-based & high recall; TensorRT 477\,FPS & no code; lane IoU near YOLOP \\
+A-YOLOM~\cite{wang2024ayolom} & 2024 & A & YOLOv8 (n/s); anchor-free & adaptive concat.; 7.9k-param seg.\ head; code+weights & recall below YOLOP; FPS on GTX 1080 Ti \\
+GDMNet~\cite{liu2024gdmnet} & 2024 & A & GELAN (YOLOv9); anchor-based & GELAN encoder, MPDIoU loss & two different detection results reported \\
+Improved YOLOP + LiDAR fusion~\cite{liu2024fusion} & 2024 & A & CSPDarknet + C2f + SPPF; n.r. & LiDAR--camera fusion, KITTI test & results only as image tables \\
+MogaNet/BiFPN net~\cite{li2024envperception} & 2024 & A & YOLOv8 + MogaNet + BiFPN; n.r. & MogaNet + BiFPN, good mAP & no code; params not reported \\
+T-YOLOP~\cite{lin2024tyolop} & 2024 & A & YOLOP (Taguchi-tuned heads); anchor-based & Taguchi design of head widths & detection not evaluated \\
+YOLOP-DN~\cite{tang2024yolopdn} & 2024 & A & YOLOP + dual neck + C2f + SPD-conv; anchor-based & dual neck; deployed on Atlas 200I A2 & slower than YOLOP; no code \\
+YOLOPv3~\cite{zhan2024yolopv3} & 2024 & A & ELAN (YOLOv7); anchor-based & best recall/mAP of family A; code & 30.2\,M params, 37\,FPS \\
+HybridNets~\cite{vu2025hybridnets} & 2025 & A & EfficientNet + BiFPN; anchor-based & BiFPN, strong recall; code & slow (37\,ms on V100) \\
+MT-TPPNet~\cite{mttppnet2025} & 2025 & A & YOLOv8 + decoupled projection; n.r. & decoupled features; railway transfer & no code \\
+MTFENet~\cite{mtfenet2025} & 2025 & A & YOLOv8 + DySample/ODConv; n.r. & 441\,FPS (RTX 4090); SODA10M test & lane precision instead of accuracy \\
+AurigaNet~\cite{ghasemzadeh2026auriganet} & 2026 & A & CSPDarknet + deformable embedding; anchor-based & instance-level drivable area; Orin NX & non-standard metrics; low recall \\
+DBA-Net~\cite{dbanet2026} & 2026 & A & YOLOP + asymmetric attention; anchor-based & directional attention for adverse scenes & single-run; lane IoU below YOLOP \\
+DynasticNet~\cite{caldiran2022dynasticnet} & 2022 & B & VGG16; box-mask localisation & fastest multi-net of 2022 in its comparison & detection only as box-mask IoU; low lane IoU \\
+Mobip~\cite{ye2023mobip} & 2023 & B & MobileNetV2; anchor-based & MobileNetV2, one multi-class seg.\ head & detection below YOLOP \\
+TwinLiteNet~\cite{che2023twinlitenet} & 2023 & B & ESPNet-C; none & 0.4\,M params, 415\,FPS; Jetson deployment & no detection; lane IoU only \\
+TriLiteNet (base)~\cite{trilitenet2025} & 2025 & B & depth-wise ESP; anchor-based & 2.35\,M params incl.\ detection; Jetson & mAP 72.3\% (below YOLOP) \\
+TwinLiteNet+ (L)~\cite{che2025twinliteplus} & 2025 & B & ESPNet-derived DESP; none & Pareto-optimal seg.; INT8; per-condition results & no detection \\
+KDTwin (TwinMixing-T)~\cite{kdtwin2026} & 2026 & B & Shuffle/EPM (distilled); none & task-aware distillation for tiny models & no detection; no speed reported \\
+TwinMixing (L)~\cite{twinmixing2026} & 2026 & B & Shuffle units + EPM; none & channel-shuffle mixing; Jetson & no detection \\
+MultiNet-GS~\cite{li2023multinetgs} & 2023 & C & YOLOv8 + bi-level routing attention; n.r. & highest mAP in its table; Jetson TX2 test & baseline numbers inconsistent with originals \\
+VE-Prompt~\cite{liang2023veprompt} & 2023 & C & Swin-T + FPN; query-based (DINO) & partial-label MTL, multi-class detection & large gap to single-task models \\
+Pruned+KD RMT-PPAD~\cite{compress2025} & 2025 & C & RT-DETR (pruned); query-based & $-$32.7\% params with small loss & corrected lane protocol; no code \\
+RMT-PPAD~\cite{wang2026rmtppad} & 2026 & C & RT-DETR (HGNetV2-L) + GCA; query-based & RT-DETR + gated adapters; 84.9\% mAP & corrected lane label; 34.3\,M params \\
+Safety-aware transformer MTL~\cite{selvarajan2026safety} & 2026 & C & transformer-enhanced YOLO (A-YOLOM(s) baseline); n.r. & road anomalies; Indian road dataset & BDD100K used only secondarily \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\caption{BDD100K validation results as reported by each study (\%). Rec./mAP: vehicle recall and mAP@0.5; DA: drivable-area mIoU; LL: lane-line accuracy and IoU. Superscripts give the stated lane-accuracy definition: p = pixel accuracy, b = balanced accuracy, r = recall, g = global accuracy $(TP+TN)/N$, ? = not defined. Values are not directly comparable across rows (Section~\ref{sec:discussion}); RMT-PPAD and its compressed version use an 8-px lane test label, AurigaNet reports drivable IoU and mAP@0.5:0.95 instead. ``--'': not reported. $^*$Parameter count of YOLOP as reported by~\cite{vu2025hybridnets,wang2024ayolom}.}
+\label{tab:comparison}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\begin{tabularx}{\linewidth}{L{3.3cm} c r r r r r r X c}
+\toprule
+Study & Fam. & Params [M] & Rec. & mAP & DA & LL Acc & LL IoU & Speed [FPS] (GPU) & Code \\
+\midrule
+Multilevel-branch net~\cite{kim2022joint} & A & -- & 89.08 & 76.16 & 92.68 & 72.13\textsuperscript{?} & 26.92 & 37 & N \\
+YOLOP~\cite{wu2022yolop} & A & 7.9$^*$ & 89.2 & 76.5 & 91.5 & 70.5\textsuperscript{p} & 26.2 & 41 (TITAN XP) & Y \\
+YOLOPv2~\cite{han2022yolopv2} & A & 38.9 & 91.1 & 83.4 & 93.2 & 87.31\textsuperscript{p} & 27.25 & 91 (V100) & N \\
+DP-YOLO~\cite{zeng2023dpyolo} & A & 8.7 & 89.3 & 77.2 & 91.5 & 71.10\textsuperscript{?} & 26.0 & 110 (Tesla T4) & N \\
+Grouped-conv/attention net~\cite{ma2023grouped} & A & 8.301 & 89.1 & 75.8 & 91.9 & 74.9\textsuperscript{?} & 27.7 & 12.8 ms (RTX 2070 Super) & N \\
+YOLO-ODL~\cite{guo2023yoloodl} & A & -- & 94.2 & 79.7 & 92.3 & 75.0\textsuperscript{?} & 27.5 & 94 (RTX 3090) & N \\
+A-YOLOM(n)~\cite{wang2024ayolom} & A & 4.43 & 85.3 & 78.0 & 90.5 & 81.3\textsuperscript{b} & 28.2 & 39.9 (GTX 1080 Ti) & Y \\
+A-YOLOM(s)~\cite{wang2024ayolom} & A & 13.61 & 86.9 & 81.1 & 91.0 & 84.9\textsuperscript{b} & 28.8 & 39.7 (GTX 1080 Ti) & Y \\
+GDMNet~\cite{liu2024gdmnet} & A & -- & 89.7 & 78.2 & 92.2 & 75.3\textsuperscript{?} & 26.4 & 56.5 (RTX 3090) & N \\
+Improved YOLOP + LiDAR fusion~\cite{liu2024fusion} & A & -- & -- & -- & -- & -- & -- & -- & Y \\
+MogaNet/BiFPN net~\cite{li2024envperception} & A & -- & 87.3 & 81.4 & 92.6 & 79.6\textsuperscript{?} & 28.9 & 61 (RTX 4090) & N \\
+T-YOLOP~\cite{lin2024tyolop} & A & -- & -- & -- & 92.8 & 73.9\textsuperscript{g} & 27.8 & -- & N \\
+YOLOP-DN~\cite{tang2024yolopdn} & A & 10.9 & 90.5 & 78.1 & 92.0 & 73.80\textsuperscript{?} & 27.30 & 91 (RTX 3060) & N \\
+YOLOPv3~\cite{zhan2024yolopv3} & A & 30.2 & 96.9 & 84.3 & 93.2 & 88.3\textsuperscript{p} & 28.0 & 37 & Y \\
+HybridNets~\cite{vu2025hybridnets} & A & 12.83 & 92.8 & 77.3 & 90.5 & 85.4\textsuperscript{?} & 31.6 & 37 ms (V100 FP16) & Y \\
+MT-TPPNet~\cite{mttppnet2025} & A & 13.83 & 89.4 & 83.2 & 91.6 & 85.1\textsuperscript{b} & 28.9 & 285 (bs16) (V100) & N \\
+MTFENet~\cite{mtfenet2025} & A & -- & 88.4 & 81.5 & 93.8 & -- & 33.7 & 441.53 (RTX 4090) & N \\
+AurigaNet~\cite{ghasemzadeh2026auriganet} & A & 9.09 & 75.9 & -- & 85.2 & 98.77\textsuperscript{g} & 60.80 & 217 (RTX 4080) & Y \\
+DBA-Net~\cite{dbanet2026} & A & 8.06 & 89.6 & 77.2 & 91.7 & 71.6\textsuperscript{?} & 25.8 & 120 (RTX 3070 Ti) & N \\
+DynasticNet~\cite{caldiran2022dynasticnet} & B & -- & -- & -- & 87.39 & 70.27\textsuperscript{p} & 15.15 & 47.62 (Tesla P100) & N \\
+Mobip~\cite{ye2023mobip} & B & 7.5 & 89.3 & 75.6 & 90.4 & 86.2\textsuperscript{?} & 30.9 & 58 (V100) & Y \\
+TwinLiteNet~\cite{che2023twinlitenet} & B & 0.4 & -- & -- & 91.3 & -- & 31.08 & 415 (RTX A5000) & Y \\
+TriLiteNet (base)~\cite{trilitenet2025} & B & 2.35 & 85.6 & 72.3 & 92.4 & 82.3\textsuperscript{b} & 29.8 & 105 & Y \\
+TwinLiteNet+ (L)~\cite{che2025twinliteplus} & B & 1.94 & -- & -- & 92.9 & 81.9\textsuperscript{b} & 34.2 & 109 (RTX A5000) & Y \\
+KDTwin (TwinMixing-T)~\cite{kdtwin2026} & B & 0.10 & -- & -- & 91.7 & 79.2\textsuperscript{?} & 31.0 & -- & Y \\
+TwinMixing (L)~\cite{twinmixing2026} & B & 1.50 & -- & -- & 92.8 & -- & 34.2 & 56 & Y \\
+MultiNet-GS~\cite{li2023multinetgs} & C & 47.5 & 94.1 & 85.7 & 92.7 & 87.7\textsuperscript{?} & 75.4 & 88 (RTX 3090) & N \\
+VE-Prompt~\cite{liang2023veprompt} & C & -- & -- & 64.9 & 89.4 & -- & 24.0 & -- & N \\
+Pruned+KD RMT-PPAD~\cite{compress2025} & C & 23.1 & 94.2 & 83.1 & 92.5 & 85.5\textsuperscript{r} & 56.4 & 32.7 (RTX 4090) & N \\
+RMT-PPAD~\cite{wang2026rmtppad} & C & 34.3 & 95.4 & 84.9 & 92.6 & 84.7\textsuperscript{r} & 56.8 & 32.6 (RTX 4090) & Y \\
+Safety-aware transformer MTL~\cite{selvarajan2026safety} & C & -- & -- & 57.4 & -- & -- & -- & -- (RTX 3070) & Y \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -1,0 +1,88 @@
+{
+  "weights": "data/weights/v4.pt",
+  "device": "cpu",
+  "batch": 16,
+  "imgsz": 640,
+  "wall_time_s": 3105.390601158142,
+  "n_params": 3633327,
+  "speed_ms_per_image_per_task": {
+    "preprocess": 0.16014566421508789,
+    "inference": 98.44081989129386,
+    "loss": 5.553563435872395e-05,
+    "postprocess": 0.25347736676534016
+  },
+  "tasks": {
+    "detection-object": {
+      "images": 10000,
+      "instances": 108399,
+      "precision": 0.1356265204849118,
+      "recall": 0.8527108183654831,
+      "mAP50": 0.7799827246039945,
+      "mAP50-95": 0.4880784455744303
+    },
+    "seg-drivable-10": {
+      "official_per_image_mean": {
+        "pixacc": 0.9805838824559782,
+        "subacc": 0.9361705795164679,
+        "IoU": 0.8323294414217511,
+        "mIoU": 0.9046892825141598,
+        "n_images": 10000
+      },
+      "dataset_level": {
+        "IoU_fg": 0.8813641933265836,
+        "IoU_bg": 0.9773111148808001,
+        "mIoU": 0.9293376541036918,
+        "pixel_acc": 0.9805838824559772,
+        "balanced_acc": 0.9622084804138309,
+        "precision_fg": 0.9382452481947932,
+        "recall_fg": 0.9356415792223935
+      },
+      "confusion_matrix[[TN,FP],[FN,TP]]": [
+        [
+          2158154697,
+          24499460
+        ],
+        [
+          25603443,
+          372222400
+        ]
+      ]
+    },
+    "seg-lane-11": {
+      "official_per_image_mean": {
+        "pixacc": 0.9891945707775279,
+        "subacc": 0.8132692859640341,
+        "IoU": 0.2820717391878867,
+        "mIoU": 0.6355937605684882,
+        "n_images": 10000
+      },
+      "dataset_level": {
+        "IoU_fg": 0.30762420309237515,
+        "IoU_bg": 0.9891424449832994,
+        "mIoU": 0.6483833240378373,
+        "pixel_acc": 0.9891945707775298,
+        "balanced_acc": 0.8401045279140479,
+        "precision_fg": 0.357251936001434,
+        "recall_fg": 0.6889071469443522
+      },
+      "confusion_matrix[[TN,FP],[FN,TP]]": [
+        [
+          2540208237,
+          22288833
+        ],
+        [
+          5594361,
+          12388569
+        ]
+      ]
+    }
+  },
+  "env": {
+    "python": "3.10.22",
+    "torch": "2.2.2",
+    "numpy": "1.26.4",
+    "ultralytics_fork": "8.0.105",
+    "platform": "macOS-27.2.1-arm64-arm-64bit",
+    "machine": "arm64"
+  }
+}

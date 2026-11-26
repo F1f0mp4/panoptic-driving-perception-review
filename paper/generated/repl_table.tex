@@ -1,0 +1,61 @@
+\begin{table}[t]
+\centering
+\caption{Original versus replicated results of A-YOLOM on the BDD100K validation set (10{,}000 images). Original values: Tables~I--IV of~\cite{wang2024ayolom}. Replication: released weights, official evaluation code on the Apple M3~Pro CPU. Difference = replication $-$ original (pp for metrics). Parameters counted before Conv+BN fusion. $^\dagger$Original FPS on a GTX~1080~Ti, replication on Apple M3~Pro GPU (MPS, FP32) -- not comparable. $^\ddagger$Apple M3~Pro CPU, FP32, 100 passes.}
+\label{tab:repl}
+\small
+\begin{tabular}{l rrr rrr}
+\toprule
+ & \multicolumn{3}{c}{A-YOLOM(n)} & \multicolumn{3}{c}{A-YOLOM(s)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Metric & Orig. & Repl. & Diff. & Orig. & Repl. & Diff. \\
+\midrule
+Vehicle recall [\%] & 85.3 & 85.27 & -0.03 & 86.9 & 86.90 & 0.00 \\
+Vehicle mAP@0.5 [\%] & 78.0 & 78.00 & 0.00 & 81.1 & 81.08 & -0.02 \\
+Drivable-area mIoU [\%] & 90.5 & 90.47 & -0.03 & 91.0 & 91.04 & +0.04 \\
+Lane balanced accuracy [\%] & 81.3 & 81.33 & +0.03 & 84.9 & 84.88 & -0.02 \\
+Lane IoU [\%] & 28.2 & 28.21 & +0.01 & 28.8 & 28.81 & +0.01 \\
+\midrule
+Parameters [M] & 4.43 & 3.64 & -0.79 & 13.61 & 13.61 & 0.00 \\
+FPS, batch 1$^\dagger$ & 39.9 & 37.3 & n/a & 39.7 & 29.5 & n/a \\
+FPS, batch 32$^\dagger$ & 172.2 & 101.2 & n/a & 96.2 & 53.5 & n/a \\
+FPS, batch 1, CPU$^\ddagger$ & -- & 11.4 & n/a & -- & 6.1 & n/a \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{Effect of the aggregation scheme on the segmentation metrics (replication, \%). The official code averages per-image values; ``dataset-level'' uses one confusion matrix accumulated over all 10{,}000 images.}
+\label{tab:agg}
+\small
+\begin{tabular}{l rr rr}
+\toprule
+ & \multicolumn{2}{c}{A-YOLOM(n)} & \multicolumn{2}{c}{A-YOLOM(s)} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Metric & per-image & dataset & per-image & dataset \\
+\midrule
+Drivable-area mIoU & 90.47 & 92.93 & 91.04 & 93.43 \\
+Lane balanced accuracy & 81.33 & 84.01 & 84.88 & 87.68 \\
+Lane IoU & 28.21 & 30.76 & 28.81 & 30.87 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[t]
+\centering
+\caption{A-YOLOM(n): identical code, weights and data evaluated with the PyTorch~2.2.2 MPS (Apple GPU) backend versus the CPU (\%). We attribute the difference to in-place \texttt{clamp\_} operations on tensor views, which have no effect on MPS (see text).}
+\label{tab:mps}
+\small
+\begin{tabular}{l rrr}
+\toprule
+Metric & CPU & MPS & Diff. \\
+\midrule
+Vehicle recall & 85.27 & 69.42 & -15.85 \\
+Vehicle mAP@0.5 & 78.00 & 44.51 & -33.49 \\
+Drivable-area mIoU & 90.47 & 90.20 & -0.27 \\
+Lane balanced accuracy & 81.33 & 82.44 & +1.11 \\
+Lane IoU (per-image) & 28.21 & 17.14 & -11.06 \\
+Lane IoU (dataset-level) & 30.76 & 28.46 & -2.30 \\
+\bottomrule
+\end{tabular}
+\end{table}

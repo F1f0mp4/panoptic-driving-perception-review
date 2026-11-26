@@ -1,0 +1,3 @@
+[submodule "YOLOv8-multi-task"]
+	path = YOLOv8-multi-task
+	url = https://github.com/JiayuanWang-JW/YOLOv8-multi-task.git

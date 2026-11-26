@@ -1,0 +1,38 @@
+\textbf{Tool and model.} Claude Code (desktop application, Anthropic) with the model Claude Opus~5.5 (\texttt{claude-opus-5-5}), used on 25~November~2026.
+
+\textbf{Purpose of use.}
+(1)~Writing and running the search scripts for OpenAlex, Semantic Scholar and arXiv, and de-duplicating the records;
+(2)~proposing title/abstract screening decisions (all decisions and reasons are listed in \path{review/search/screening.csv});
+(3)~reading open-access full texts and extracting the data items of Section~\ref{sec:method}. Sub-agents of the same model read arXiv/HTML versions; other values were read by the assistant from publisher HTML tables in a browser or from PDF text extracted with \texttt{pypdf};
+(4)~fetching bibliographic metadata from Crossref/arXiv to build the reference list;
+(5)~setting up the software environment, writing the evaluation, data-download and speed-benchmark scripts, running the replication and generating the tables and figures;
+(6)~drafting the text of this article.
+The LLM is not a scientific source. Every number in Tables~\ref{tab:qual}--\ref{tab:comparison} must be traceable to the primary source listed in the extraction table (\path{review/included_studies.csv}), and the authors are responsible for checking it. Values that the assistant could not verify from the full text were recorded as ``not reported'' rather than estimated.
+
+\textbf{Prompts.} The task-level prompt given by the authors (verbatim, except that diacritics in the attached file name were removed for typesetting):
+\begin{lstlisting}
+@"Systematicky prehlad literatury_replikacia experimentu (1).pdf"
+https://github.com/JiayuanWang-JW/YOLOv8-multi-task.git
+i want you to use this github. I need it for the .pdf
+So go to work. No mistakes.
+\end{lstlisting}
+Clarifying answers given by the authors when asked by the assistant: download of the weights, annotations and BDD100K images approved; article language English; replication scope ``evaluation only''; author names left as placeholders. The only further prompt by the authors was a status question during the run (verbatim):
+\begin{lstlisting}
+how long until it's done?
+\end{lstlisting}
+
+Data-extraction prompt sent to the reading sub-agents (abridged only by removing the per-paper URL list):
+\begin{lstlisting}
+You are doing data extraction for a systematic literature review on camera-based multi-task
+"panoptic driving perception" (traffic object detection + drivable area segmentation + lane
+line detection/segmentation, mainly on BDD100K). Read the FULL TEXT (not just the abstract) of
+each paper below at the given URL. Report ONLY what the paper itself states. Never guess or
+fill from memory; if a value is not stated write "NR". Copy numbers exactly as printed (keep
+the paper's precision and units). For numbers, say which table they come from.
+For EACH paper return one JSON object with these keys: "rid", "title", "venue_year_as_printed",
+"full_text_read", "tasks_evaluated", "datasets", "input_resolution", "method_summary",
+"det_classes", "own_results_bdd100k": {"det_recall","det_mAP50","det_mAP50_95","da_mIoU",
+"ll_acc","ll_IoU","params","gflops","fps","fps_hardware_and_batch"}, "lane_acc_definition",
+"baselines_compared", "robustness_or_extra_eval", "code_available",
+"limitations_stated_by_authors", "exclusion_flag".
+\end{lstlisting}

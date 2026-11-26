@@ -1,0 +1,25 @@
+YOLOv8-bdd-v4-one-dropout-individual summary (fused): 302 layers, 3633327 parameters, 0 gradients
+{
+  "weights": "data/weights/v4.pt",
+  "device": "mps",
+  "input": [
+    384,
+    640
+  ],
+  "precision": "fp32",
+  "bs1": {
+    "iters": 1000,
+    "latency_ms": 26.83299037499819,
+    "fps": 37.267557064074246
+  },
+  "bs32": {
+    "iters": 1000,
+    "latency_ms_per_batch": 316.355929250014,
+    "fps": 101.15188950579336
+  },
+  "env": {
+    "torch": "2.2.2",
+    "python": "3.10.22",
+    "platform": "macOS-27.2.1-arm64-arm-64bit"
+  }
+}

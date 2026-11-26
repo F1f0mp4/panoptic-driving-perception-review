@@ -1,0 +1,27 @@
+# Python environment
+.venv/
+__pycache__/
+*.pyc
+
+# Third-party data: download it as described in README.md
+# (the official A-YOLOM code is included as the git submodule YOLOv8-multi-task)
+# - BDD100K images/labels (the BDD100K licence forbids redistribution) and the authors' weights
+data/
+
+# Full texts of the reviewed papers (third-party copyright)
+review/fulltext/
+
+# Debug leftovers and build artefacts
+*.trace.json
+paper/*.log
+paper/*.aux
+paper/*.blg
+paper/*.bbl
+paper/*.out
+.DS_Store
+
+# The submission ZIP duplicates this repository
+submission/*.zip
+
+# Validator sample mosaics contain BDD100K images (not redistributable); curves and confusion matrices are kept
+replication/results/runs/*/val_batch*.jpg
